@@ -4,3 +4,9 @@ numpy
 matplotlib
 jupyterlab
 fastcore
+tsai
+mat73
+tensorflow
+papermill
+torchvision
+torchaudio
