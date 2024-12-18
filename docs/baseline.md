@@ -1,8 +1,38 @@
 # Baseline Solutions
 
-<div style="display: flex; flex-direction: column; background-color: #f9f9f9; border-left: 6px solid #4aa8ec; border-radius: 4px; padding: 15px; margin: 20px 0; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); font-family: Arial, sans-serif;">
-    <div style="font-size: 18px; font-weight: bold; color: #ffffff; background-color: #4aa8ec; display: inline-block; padding: 5px 10px; border-radius: 3px; margin-bottom: 10px;">ℹ️ Note</div>
-    <p style="font-size: 14px; margin: 0; color: #555;">The baseline solutions will be released to participants in December. To be notified, please sign up for the challenge mailing list where we share announcements for new wiki entries and devkit features.</p>
+## NRLMSIS-Persistence Baseline 
+
+This baseline is a very naive approach to the problem. Its main purpose is to guide participants through the different steps of preparing and testing a model, helping them understand the workflow required to make their own submissions.
+
+In time series problems, the **persistence baseline** is often used to assess model performance. This approach simply takes the last observed value of the input and propagates it through the output, replicating the initial value as predictions for all future steps. It can be described as follows:
+
+
+ ![](_img/PersistenceForm.png)
+
+<br>
+
+For example, for yt = 5:
+
+ ![](_img/PersistenceExample.png)
+
+<br>
+Although this approach may seem overly simplistic, it is surprisingly effective in certain cases, to the point that beating it can be challenging. This is because, in time series prediction tasks, the closer the future time steps are to the present, the more similar their values tend to be due to local temporal dependencies. As a result, when there are no significant outliers, this method can deliver reasonably good performance.
+
+In this particular case, as we need to propagate and do not know the values to propagate from the beginning, we will combine it with the NRLMSIS model to obtain predictions for the initial date along the propagated orbit at each time step. To achieve this, we will use the [`pymsis`](https://swxtrec.github.io/pymsis/) library. We will then propagate our results using the [custom propagator](https://github.com/ARCLab-MIT/STORM-AI-propagator/tree/main), which is provided as part of the development tools and makes use of the [`Orekit`](https://www.orekit.org/) library. 
+
+<!-- Baseline Solutions Section -->
+<div align="center" style="margin-bottom: 20px;">
+    <!-- Centered Button with Emoji -->
+    <div style="display: inline-flex; align-items: center; background-color: #4d4d4d; color: #ffffff; border-radius: 5px; padding: 5px 15px; font-family: Arial, sans-serif; font-size: 14px; text-align: center; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);">
+        <span style="margin-right: 8px; font-size: 18px;">👩🏾‍💻</span>
+        <a href="https://github.com/ARCLab-MIT/STORM-AI-devkit-2025/tree/main/baselines/persistence" target="_blank" style="color: #ffffff; text-decoration: none;">
+            Go to baseline
+        </a>
+    </div>
 </div>
 
-Join our mailing list [here](https://forms.gle/x6BDJhNL6zecP9kP8) to receive challenge announcements and be notified of important devkit updates.
+<!-- Quote Block -->
+<div style="display: flex; flex-direction: column; background-color: #f9f9f9; border-left: 6px solid #4aa8ec; border-radius: 4px; padding: 15px; margin: 20px 0; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); font-family: Arial, sans-serif;">
+    <div style="font-size: 18px; font-weight: bold; color: #ffffff; background-color: #4aa8ec; display: inline-block; padding: 5px 10px; border-radius: 3px; margin-bottom: 10px;">ℹ️ Note</div>
+    <p style="font-size: 14px; margin: 0; color: #555;">Should participants face significant difficulties in tackling the challenge, we will consider providing additional baseline solutions in the future.</p>
+</div>

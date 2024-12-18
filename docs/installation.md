@@ -1,4 +1,4 @@
-# Participant Devkit Installation
+# Installation
 
 Components of the STORM-AI Devkit will continue to be released and documented here throughout Phase 0 and will be available in full by the launch of Phase 1 on December 16th.
 
@@ -39,20 +39,17 @@ If you plan to use GPU power in your submission and you want to try it locally, 
 ### Install Python
 If you do not have Python installed, please refer to the anaconda installation instructions [here](https://docs.anaconda.com/free/anaconda/install/index.html). The devkit is tested for Python 3.10+ on Ubuntu and Mac OS.
 
-
-<!--
 ## Download the Devkit
 
 Download the devkit using the terminal and move into the new folder named "2025-aichallenge-devkit" that was automatically created:
 ```
-cd && git clone https://github.com/ARCLab-MIT/2025-aichallenge-devkit.git && cd 2025-aichallenge-devkit
+cd && git clone https://github.com/ARCLab-MIT/STORM-AI-devkit-2025.git && cd 2025-aichallenge-devkit
 ```
 The above command will download the files to your home directory. While you can change this to an arbitrary directory, the rest of our tutorials assume that you are using the home directory.
 
-
+<!--
 ## Download the dataset
-The challenge 
 
-The challenge dataset can be downloaded from <a href="https://www.dropbox.com/scl/fo/jt5h1f82iycjb8elybmlz/h?rlkey=bjcmny486ddf7m0j7b9uok9ww&dl=0">here</a>. Please store the downloaded dataset into the `~/splid-devkit/dataset` folder. Description of the dataset is available on the [SPLID dataset page](https://splid-devkit.readthedocs.io/en/latest/dataset.html).
+The challenge dataset can be downloaded from [here](). Please store the downloaded dataset into the `~/strorm-ai-devkit/dataset` folder. All the information about it can be found on the [STORM-AI dataset page](https://2025-ai-challenge.readthedocs.io/en/latest/dataset.html).
 
 -->

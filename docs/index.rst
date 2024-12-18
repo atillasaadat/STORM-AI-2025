@@ -3,9 +3,9 @@
 
 Welcome to the wiki for the 2025 MIT ARCLab Prize for AI Innovation in Space!
 
-Here, you'll find the latest information about the competition dataset, submission instructions, devkit tutorials, and more.
+Here, you’ll find the latest information about the competition dataset, submission instructions, devkit tutorials, and more.
 
-Components of the 2025 AI Challenge Devkit will continue to be released and documented here throughout Phase 0. The full training dataset, model submission tutorial, development toolkit, and baseline model will be available by the launch of Phase 1 on December 16th.
+As of December 17th, Phase 1 of the competition has begun, and the training dataset has been released. You can now submit your code on a rolling basis for evaluation on the EvalAI platform. Phase 1 of the competition will end on March 17, 2025, at which time the top ten finalists will be notified of their advancement to Phase 2.
 
 
 .. raw:: html

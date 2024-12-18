@@ -35,9 +35,11 @@
       </a>
   </div>
 
-  <div style="display: inline-flex; align-items: center; background-color: #4d4d4d; color: #ffffff; border-radius: 5px; padding: 5px 10px; font-family: Arial, sans-serif; font-size: 14px; text-align: center; opacity: 0.5; cursor: not-allowed; width: fit-content;">
+  <div style="display: inline-flex; align-items: center; background-color: #4d4d4d; color: #ffffff; border-radius: 5px; padding: 5px 10px; font-family: Arial, sans-serif; font-size: 14px; text-align: center;">
       <img src="https://eval.ai/dist/images/evalai-logo-single.png" alt="EvalAI Logo" style="height: 20px; margin-right: 8px;">
+      <a href="https://eval.ai/web/challenges/challenge-page/2394/overview" target="_blank" style="color: #ffffff; text-decoration: none;">
       EvalAI Challenge
+      </a>
   </div>
 
   <div style="display: inline-flex; align-items: center; background-color: #4d4d4d; color: #ffffff; border-radius: 5px; padding: 5px 10px; font-family: Arial, sans-serif; font-size: 14px; text-align: center; opacity: 0.5; cursor: not-allowed;">
@@ -59,12 +61,14 @@
 
 <div style="display: flex; flex-direction: column; background-color: #fff4e5; border-left: 6px solid #ffa500; border-radius: 4px; padding: 15px; margin: 20px 0; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); font-family: Arial, sans-serif;">
     <div style="font-size: 18px; font-weight: bold; color: #ffffff; background-color: #ffa500; display: inline-block; padding: 5px 10px; border-radius: 3px; margin-bottom: 10px;">🚀  Competition Status</div>
-    <p style="font-size: 14px; margin: 0 0 10px; color: #555;">We are currently in <b>Phase 0</b> of the competition, and the <u><a href="
+    <p style="font-size: 14px; margin: 0 0 10px; color: #555;">We are currently in <b>Phase 1</b> of the competition, and the <u><a href="
     https://www.dropbox.com/scl/fo/nz1j92xpr6eet3fa5mx5i/ADMYs2zfr3dvxJ-FFd5dmM8?rlkey=tem27v1d2raf2nnlcq6cd49ev&st=f8fem2go&dl=0"  
-    style="color: #d35400; text-decoration: none; font-weight: bold;">warmup dataset</a></u> has been released. For more information about its content and format, please check out the <u><a href="https://2025-ai-challenge.readthedocs.io/en/latest/dataset.html#warmup-dataset" style="color: #d35400; text-decoration: none; font-weight: bold;">Dataset Information</a></u> section. <b> Phase 1 </b> of the competition will begin on December 16, 2024.</p>
+    style="color: #d35400; text-decoration: none; font-weight: bold;">dataset</a></u> has been released. For more information about its content and format, please check out the <u><a href="https://2025-ai-challenge.readthedocs.io/en/latest/dataset.html#warmup-dataset" style="color: #d35400; text-decoration: none; font-weight: bold;">Dataset Information</a></u> section. You can now submit your code on a rolling basis for evaluation on the EvalAI platform. <b> Phase 1 </b> of the competition will end on March 17, 2025.</p>
     <p style="font-size: 20px; margin: 0 0 10px; color: #555; text-align:center"><b>Have fun!</b></p>
 </div>
 </div>
+
+
 
 <div align="center">
 
