@@ -18,7 +18,7 @@ For example, for yt = 5:
 <br>
 Although this approach may seem overly simplistic, it is surprisingly effective in certain cases, to the point that beating it can be challenging. This is because, in time series prediction tasks, the closer the future time steps are to the present, the more similar their values tend to be due to local temporal dependencies. As a result, when there are no significant outliers, this method can deliver reasonably good performance.
 
-In this particular case, as we need to propagate and do not know the values to propagate from the beginning, we will combine it with the NRLMSIS model to obtain predictions for the initial date along the propagated orbit at each time step. To achieve this, we will use the [`pymsis`](https://swxtrec.github.io/pymsis/) library. We will then propagate our results using the [custom propagator](https://github.com/ARCLab-MIT/STORM-AI-propagator/tree/main), which is provided as part of the development tools and makes use of the [`Orekit`](https://www.orekit.org/) library. 
+In this particular case, as we need to propagate and do not know the values to propagate from the beginning, we will combine it with the NRLMSIS model to obtain predictions for the initial date along the propagated orbit at each time step. To achieve this, we will use the [`pymsis`](https://swxtrec.github.io/pymsis/) library. We will then propagate our results using the [custom propagator](https://github.com/ARCLab-MIT/STORM-AI-devkit-2025/tree/main/orbit_propagator), which is provided as part of the development tools and makes use of the [`Orekit`](https://www.orekit.org/) library. 
 
 <!-- Baseline Solutions Section -->
 <div align="center" style="margin-bottom: 20px;">
@@ -36,3 +36,10 @@ In this particular case, as we need to propagate and do not know the values to p
     <div style="font-size: 18px; font-weight: bold; color: #ffffff; background-color: #4aa8ec; display: inline-block; padding: 5px 10px; border-radius: 3px; margin-bottom: 10px;">ℹ️ Note</div>
     <p style="font-size: 14px; margin: 0; color: #555;">Should participants face significant difficulties in tackling the challenge, we will consider providing additional baseline solutions in the future.</p>
 </div>
+
+## Baseline Model Orbit Propagator
+
+Since many participants do not have a background in space or astrodynamics, we have provided a high-fidelity orbit propagator that participants may use if they decide to take an approach that relies on propagating a spacecraft’s initial orbit. This tool can propagate a satellite through a custom atmospheric model, and considers these additional perturbations: Earth’s non-spherical gravity field, solar radiation pressure, lunisolar third body accelerations, and Earth solid tides. The propagator’s outputs are composed of the satellite’s orbital state vector and the instantaneous density of the model at every iteration. The propagator is implemented using the Orekit Python Wrapper, and the tutorial is a Jupyter Notebook in Python.
+
+You can access the propagator and its accompanying tutorial in our GitHub devkit [here](https://github.com/ARCLab-MIT/STORM-AI-devkit-2025/tree/main/orbit_propagator). To use it, simply open `propagator_tutorial.ipynb` and follow the instructions to download and set-up Orekit. The tutorial also includes instructions on how to add your own atmospheric model and toggle the propagation settings. These resources are intended to help any participants who are not experienced with orbit propagation and would like to incorporate a propagator into their model. Competitors are more than welcome to use alternative propagation tools or to submit models that do not rely on orbit propagation at all. 
+

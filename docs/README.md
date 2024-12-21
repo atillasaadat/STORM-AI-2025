@@ -62,8 +62,8 @@
 <div style="display: flex; flex-direction: column; background-color: #fff4e5; border-left: 6px solid #ffa500; border-radius: 4px; padding: 15px; margin: 20px 0; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); font-family: Arial, sans-serif;">
     <div style="font-size: 18px; font-weight: bold; color: #ffffff; background-color: #ffa500; display: inline-block; padding: 5px 10px; border-radius: 3px; margin-bottom: 10px;">🚀  Competition Status</div>
     <p style="font-size: 14px; margin: 0 0 10px; color: #555;">We are currently in <b>Phase 1</b> of the competition, and the <u><a href="
-    https://www.dropbox.com/scl/fo/nz1j92xpr6eet3fa5mx5i/ADMYs2zfr3dvxJ-FFd5dmM8?rlkey=tem27v1d2raf2nnlcq6cd49ev&st=f8fem2go&dl=0"  
-    style="color: #d35400; text-decoration: none; font-weight: bold;">dataset</a></u> has been released. For more information about its content and format, please check out the <u><a href="https://2025-ai-challenge.readthedocs.io/en/latest/dataset.html#warmup-dataset" style="color: #d35400; text-decoration: none; font-weight: bold;">Dataset Information</a></u> section. You can now submit your code on a rolling basis for evaluation on the EvalAI platform. <b> Phase 1 </b> of the competition will end on March 17, 2025.</p>
+    https://www.dropbox.com/scl/fo/ilxkfy9yla0z2ea97tfqv/AB9lngJ2yHvf9t5h2oQXaDc?rlkey=iju8q5b1kxol78kbt0b9tcfz3&st=j7f0mcc3&dl=0"  
+    style="color: #d35400; text-decoration: none; font-weight: bold;">dataset</a></u> has been released. For more information about its content and format, please check out the <u><a href="https://2025-ai-challenge.readthedocs.io/en/latest/dataset.html#dataset-information" style="color: #d35400; text-decoration: none; font-weight: bold;">Dataset Information</a></u> section. You can now submit your code on a rolling basis for evaluation on the <u><a href="https://eval.ai/web/challenges/challenge-page/2394/overview" style="color: #d35400; text-decoration: none; font-weight: bold;">EvalAI platform</a></u>. <b> Phase 1 </b> of the competition will end on March 17, 2025.</p>
     <p style="font-size: 20px; margin: 0 0 10px; color: #555; text-align:center"><b>Have fun!</b></p>
 </div>
 </div>
@@ -107,15 +107,11 @@ The dataset consists of a public challenge dataset that can be used to train and
 <h3> Development Toolkit </h3>
 </div>
 
-<div style="display: flex; flex-direction: column; background-color: #f9f9f9; border-left: 6px solid #4aa8ec; border-radius: 4px; padding: 15px; margin: 20px 0; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); font-family: Arial, sans-serif;">
-    <div style="font-size: 18px; font-weight: bold; color: #ffffff; background-color: #4aa8ec; display: inline-block; padding: 5px 10px; border-radius: 3px; margin-bottom: 10px;">ℹ️ Note</div>
-    <p style="font-size: 14px; margin: 0; color: #555;">Participants will gain access to new features of our development toolkit on GitHub over the course of Phase 0. <b>All features will be available by the launch of Phase 1 on December 16, 2024.</b></p>
-</div>
-
 <div align="justify">
 
-The development kit will be coded in Python and will include a set of essential utility functions, tutorials, and baseline implementations designed to help participants get started with the challenge. The tutorials will provide guidance on data reading, parsing, and manipulation, as well as on training, evaluating, and submitting their machine learning algorithms to the competition platform.
+The STORM-AI DevKit is accessible on GitHub <a href="https://github.com/ARCLab-MIT/STORM-AI-devkit-2025/">here</a>. It includes the code for the baseline model that appears on the EvalAI leaderboard, a high-fidelity orbit propagator, and more. 
 
+The development kit is coded in Python and includes a set of essential utility functions, tutorials, and baseline implementations designed to help participants get started with the challenge. The tutorials provide guidance on data reading, parsing, and manipulation, as well as on training, evaluating, and submitting the machine learning algorithms to the competition platform.
 </div>
 
 ---

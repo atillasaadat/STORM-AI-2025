@@ -1,13 +1,13 @@
 
 # Baseline submissions
-Participants will be submitting their trained algorithm with their  code/workflow to generation predictions into the competition platform, in the programming language they prefer. Here we provide a Docker container and an example submission in Python, but participants are allowed to submit with other custom containers too. 
+Participants will be submitting their trained algorithm with their code/workflow to generation predictions into the competition platform, in the programming language they prefer. Here we provide a Docker container and an example submission in Python, but participants are allowed to submit with other custom containers too. 
 
 ## Evaluation script
-The `evaluation.py` script provides a standard way to assess the performance of the models submitted for the challenge. It employs metrics and evaluation techniques that are aligned with the challenge's objectives.
+The `evaluation.py` script provides participants a simple way to assess the performance of the models they submit for the challenge. It employs metrics and evaluation techniques that are aligned with the challenge's objectives.
 
 The toy datasets `ground_truth_toy.json` and `participant_toy.json` serve as simplified, 
 example datasets for the challenge. These datasets are intended for initial 
-testing and understanding of the evaluation script and the baseline model.
+testing and understanding of the simplified evaluation script and the baseline model.
 
 ### Example Usage
 The `run_evaluator` function is the main entry point of the script and accepts the following arguments:

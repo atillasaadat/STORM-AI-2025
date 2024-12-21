@@ -17,15 +17,13 @@ The private evaluation dataset contains data from spacecraft and/or time periods
 
 ## STORM-AI Data Formats
 
-### Warmup Dataset 
+### Phase 1 Public Training Dataset
 
-The <a href="https://www.dropbox.com/scl/fo/nz1j92xpr6eet3fa5mx5i/ADMYs2zfr3dvxJ-FFd5dmM8?rlkey=tem27v1d2raf2nnlcq6cd49ev&st=sty6ggo3&dl=0)">Warm-Up Dataset</a> for participants was released on November 15, 2024. 
-
-Participants should use this subset of the STORM-AI data to become familiar with the phenomenology and formats they will be asked to use during Phase 1 of the competition. The warmup dataset consists of the following files and folders: 
-* <b>wu001_to_wu715-initial_states.csv</b>: 715 sets of orbital elements and geodetic position coordinates for ESA's SWARM A satellite
-* <b>OMNI2</b>: Space weather information collected by NASA Space Flight Goddard Center and provided in 60-day segments (one 60-day OMNI2 history file per initial SWARM A state)
-* <b>GOES</b>: X-Ray flux information collected by NOAA'S GOES-13 satellite and provided in 60-day segments (one 60-day GOES history file per initial SWARM A state)
-* <b>Sat_Density</b>: Time series orbit average density values collected by ESA'S SWARM A satellite and provided in 3-day segments (one 3-day "forecasted" density file per initial SWARM A state)
+The public challenge dataset is available for participants to download and use to train and develop their models during Phase 1 of the competition. The current version of the public training dataset may be accessed <a href="https://www.dropbox.com/scl/fo/ilxkfy9yla0z2ea97tfqv/AB9lngJ2yHvf9t5h2oQXaDc?rlkey=iju8q5b1kxol78kbt0b9tcfz3&st=j7f0mcc3&dl=0">here</a> and includes the following files and folders:
+* <b>Initial state files</b>: contain samples of a satellite's initial orbital elements, geodetic (ITRF) positional coordinates, and a 5-digit file ID for each I/O pair in the provided training data. Each file name has the format `[first file ID]_to_[last file ID]-initial_states.csv`.
+* <b>OMNI2 data folder</b>: Space weather information collected by NASA Space Flight Goddard Center and provided in 60-day segments (one 60-day OMNI2 history file per initial state). Each file name has the format `omni2-[file ID]-[first day]_to_[last day].csv`, where the dates are displayed as `YYYYmmDD`.
+* <b>GOES data folder</b>: X-Ray flux information collected by NOAA'S GOES satellites and provided in 60-day segments (one 60-day GOES history file per initial state). Each file name has the format `goes-[file ID]-[first day]_to_[last day].csv`, where the dates are displayed as `YYYYmmDD`. **Note: GOES data is not included in V3.0 of the Phase 1 dataset but will be released in V3.1**
+* <b>Thermospheric density data folder</b>: Time series orbit average density values collected by ESA satellites and provided in 3-day segments (one 3-day "forecasted" density file per initial state). Each file name has the format `[spacecraft]-[file ID]-[first day]_to_[last day].csv`, where the spacecraft is indicated by a 6-character designation and dates are displayed as `YYYYmmDD`.
 
 Your objective is to design a model that, given a spacecraft's initial state and 60 days of space weather information directly preceding that state, can predict the next 3 days of atmospheric density values the spacecraft will observe.
 
@@ -37,13 +35,23 @@ That is, your model should take in these inputs:
 Your model should then predict the sequence of orbit-averaged atmospheric density values that the spacecraft will observe in the future. This prediction must span a period of 3 days directly following the timestamp of the initial satellite location.  
 
 Some recommendations: 
-* We recommend reviewing the data column header descriptions below for more details on the challenge and warmup dataset. This includes exploring the column headers and data type descriptions. 
-* Be mindful of dataset units and representations! The warmup data should help get you into this mindset.
-* You may access additional GOES, OMNI2, and SWARM A data through NOAA, NASA, and ESA online if you wish to supplement the provided warm-up data while training your algorithms.
+* We recommend reviewing the data column header descriptions in the [Definitions](https://2025-ai-challenge.readthedocs.io/en/latest/dataset.html#definitions) section for more details on the contents of the challenge dataset. This includes exploring the column headers and data type descriptions. 
+* Be mindful of dataset units and representations!
+* You may access additional GOES, OMNI2, CHAMP, GRACE, and SWARM data through NOAA, NASA, and ESA online if you wish to supplement the provided warm-up data while training your algorithms.
+
+### Warmup Dataset 
+
+The <a href="https://www.dropbox.com/scl/fo/nz1j92xpr6eet3fa5mx5i/ADMYs2zfr3dvxJ-FFd5dmM8?rlkey=tem27v1d2raf2nnlcq6cd49ev&st=sty6ggo3&dl=0)">warm-up dataset</a> was released to participants on November 15, 2024. 
+
+Participants should use this subset of the STORM-AI data to become familiar with the phenomenology and formats they will be asked to use during Phase 1 of the competition. The warmup dataset consists of the following files and folders: 
+* <b>wu001_to_wu715-initial_states.csv</b>: 715 sets of orbital elements and geodetic position coordinates for ESA's SWARM A satellite
+* <b>OMNI2</b>: Space weather information collected by NASA Space Flight Goddard Center and provided in 60-day segments (one 60-day OMNI2 history file per initial SWARM A state)
+* <b>GOES</b>: X-Ray flux information collected by NOAA'S GOES-13 satellite and provided in 60-day segments (one 60-day GOES history file per initial SWARM A state)
+* <b>Sat_Density</b>: Time series orbit average density values collected by ESA'S SWARM A satellite and provided in 3-day segments (one 3-day "forecasted" density file per initial SWARM A state)
 
 ### Definitions
 
-#### Satellite Initial State Data
+#### Spacecraft Initial State Data
 | Column Header  | Description | 
 | ------------- | ------------- | 
 | File ID  | 5 character designator assigned to the OMNI2, GOES, & Sat_Density files associated with the initial satellite state |
@@ -121,8 +129,60 @@ Some recommendations:
 | Flux_FLAG                  | Flag indicating quality of proton flux measurements. Units in -.                                     |
 | Date                       | Date of observation. Units in YYYY-MM-DD.                                                            |
 
-#### GOES-13 X-Ray Flux Data
-| Column Header            | Description                                                                                       |
+#### GOES-EAST (GOES-8, 12, 13, 16) X-Ray Flux Data
+For additional information on the GOES datasets, we recommend checking out <a href="https://www.dropbox.com/scl/fo/ilxkfy9yla0z2ea97tfqv/AB9lngJ2yHvf9t5h2oQXaDc?rlkey=iju8q5b1kxol78kbt0b9tcfz3&st=j7f0mcc3&dl=0">the NOAA Satellite Information System</a>.
+
+There is a specific bit arrangement for <b>xrsa_flag</b> and <b>xrsb_flag</b> values-- you can find more info on <a href="https://github.com/ARCLab-MIT/STORM-AI-devkit-2025/discussions/6">this discussion forum post</a>. Overall, it would be most helpful for you to just think of any data entries with 0.0 flag values as ‘good’ data. Any other value in the flag columns can be considered ‘bad’ or ‘compromised’ data.
+
+
+| Column Header              | Description                                                                                       |
+|-----------------------------|---------------------------------------------------------------------------------------------------|
+| time                       | Timestamp of the measurement.                                                                     |
+| quad_diode                 | Measurement from the quad diode sensor.                                                          |
+| xrsa_flux                  | Flux measured in the XRS-A sensor, represents solar soft X-ray emissions.                        |
+| xrsa_flux_observed         | Observed flux in the XRS-A sensor, including all raw measurement data without corrections.        |
+| xrsa_flux_electrons        | Estimated contribution of electron flux in the XRS-A sensor measurements.                        |
+| xrsb_flux                  | Flux measured in the XRS-B sensor, represents solar hard X-ray emissions.                        |
+| xrsb_flux_observed         | Observed flux in the XRS-B sensor, including all raw measurement data without corrections.        |
+| xrsb_flux_electrons        | Estimated contribution of electron flux in the XRS-B sensor measurements.                        |
+| xrsa_flag                  | Quality flag for XRS-A data.                                                                      |
+| xrsb_flag                  | Quality flag for XRS-B data.                                                                      |
+| xrsa_num                   | Number of valid data points in the XRS-A dataset during the study period.                         |
+| xrsb_num                   | Number of valid data points in the XRS-B dataset during the study period.                         |
+| xrsa_flag_excluded         | Indicates whether specific XRS-A data points are excluded based on quality checks. Binary flag.   |
+| xrsb_flag_excluded         | Indicates whether specific XRS-B data points are excluded based on quality checks. Binary flag.   |
+| au_factor                  | Calibration factor for converting flux values into physical units.                                |
+| corrected_current_xrsb2    | Corrected current values for the XRS-B2 sensor.                                                   |
+| roll_angle                 | Roll angle of the spacecraft during the measurement.                                              |
+| xrsa1_flux                 | Flux measured in XRS-A1 sensor, represents solar soft X-ray emissions.                           |
+| xrsa1_flux_observed        | Observed flux in XRS-A1 sensor, including all raw measurement data without corrections.           |
+| xrsa1_flux_electrons       | Estimated contribution of electron flux in the XRS-A1 sensor measurements.                       |
+| xrsa2_flux                 | Flux measured in XRS-A2 sensor, represents solar soft X-ray emissions.                           |
+| xrsa2_flux_observed        | Observed flux in XRS-A2 sensor, including all raw measurement data without corrections.           |
+| xrsa2_flux_electrons       | Estimated contribution of electron flux in the XRS-A2 sensor measurements.                       |
+| xrsb1_flux                 | Flux measured in XRS-B1 sensor, represents solar hard X-ray emissions.                           |
+| xrsb1_flux_observed        | Observed flux in XRS-B1 sensor, including all raw measurement data without corrections.           |
+| xrsb1_flux_electrons       | Estimated contribution of electron flux in the XRS-B1 sensor measurements.                       |
+| xrsb2_flux                 | Flux measured in XRS-B2 sensor, represents solar hard X-ray emissions.                           |
+| xrsb2_flux_observed        | Observed flux in XRS-B2 sensor, including all raw measurement data without corrections.           |
+| xrsb2_flux_electrons       | Estimated contribution of electron flux in the XRS-B2 sensor measurements.                       |
+| xrs_primary_chan           | Primary X-ray sensor channel used for the measurement.                                           |
+| xrsa1_flag                 | Quality flag for XRS-A1 data.                                                                     |
+| xrsa2_flag                 | Quality flag for XRS-A2 data.                                                                     |
+| xrsb1_flag                 | Quality flag for XRS-B1 data.                                                                     |
+| xrsb2_flag                 | Quality flag for XRS-B2 data.                                                                     |
+| xrsa1_num                  | Number of valid data points in the XRS-A1 dataset during the study period.                        |
+| xrsa2_num                  | Number of valid data points in the XRS-A2 dataset during the study period.                        |
+| xrsb1_num                  | Number of valid data points in the XRS-B1 dataset during the study period.                        |
+| xrsb2_num                  | Number of valid data points in the XRS-B2 dataset during the study period.                        |
+| xrsa1_flag_excluded        | Indicates whether specific XRS-A1 data points are excluded based on quality checks. Binary flag.  |
+| xrsa2_flag_excluded        | Indicates whether specific XRS-A2 data points are excluded based on quality checks. Binary flag.  |
+| xrsb1_flag_excluded        | Indicates whether specific XRS-B1 data points are excluded based on quality checks. Binary flag.  |
+| xrsb2_flag_excluded        | Indicates whether specific XRS-B2 data points are excluded based on quality checks. Binary flag.  |
+| yaw_flip_flag              | Indicates whether a yaw flip occurred during the measurement.                                     |
+
+
+<!-- | Column Header            | Description                                                                                       |
 |---------------------------|---------------------------------------------------------------------------------------------------|
 | Timestamp                 | Timestamp of the measurement.    
 | xrsa_flux                | Flux measured in the XRS-A sensor, represents solar soft X-ray emissions. |
@@ -131,14 +191,14 @@ Some recommendations:
 | xrsb_flux                | Flux measured in the XRS-B sensor, represents solar hard X-ray emissions. |
 | xrsb_flux_observed       | Observed flux in the XRS-B sensor, including all raw measurement data without corrections.         |
 | xrsb_flux_electrons      | Estimated contribution of electron flux in the XRS-B sensor measurements.      |
-| xrsa_flag                | Quality flag for XRS-A data. Binary indicator: 0 for valid data, 1 for flagged or questionable data. |
-| xrsb_flag                | Quality flag for XRS-B data. Binary indicator: 0 for valid data, 1 for flagged or questionable data. |
+| xrsa_flag                | Quality flag for XRS-A data.                                                                       |
+| xrsb_flag                | Quality flag for XRS-B data.                                                                       |
 | xrsa_num                 | Number of valid data points in the XRS-A dataset during the study period.                          |
 | xrsb_num                 | Number of valid data points in the XRS-B dataset during the study period.                          |
 | xrsa_flag_excluded       | Indicates whether specific XRS-A data points are excluded based on quality checks. Binary flag.    |
-| xrsb_flag_excluded       | Indicates whether specific XRS-B data points are excluded based on quality checks. Binary flag.    |
+| xrsb_flag_excluded       | Indicates whether specific XRS-B data points are excluded based on quality checks. Binary flag.    | -->
 
-#### SWARM A Atmospheric Density Data
+#### Spacecraft Atmospheric Density Data
 | Column Header  | Description | 
 | ------------- | ------------- | 
 | Timestamp  | Datetime-like timestamp of observation. |
@@ -151,6 +211,7 @@ Some recommendations:
 | V1.0     | 2024-11-15      | OMNI2 and SWARM A data shared in 3 files (OMNI2, SWARM A POD, SWARM A DNS) for 2014-2019              |
 | V1.1     | 2024-11-20      | Added GOES East inputs for 2014-2019                                                                  |
 | V2.0     | 2024-12-11      | Reorganized OMNI2, GOES & SWARM data into multiple files (1 of each type per initial satellite state) |
+| V3.0     | 2024-12-17      | Added remaining Phase 1 dataset without GOES inputs                                                   |
 
 ## Guidelines
 
