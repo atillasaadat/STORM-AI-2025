@@ -113,13 +113,14 @@ def prop_orbit(initial_state, CustomAtmosphere, plot_trajectory=True, **kwargs):
     tspan1 = [initialDate.shiftedBy(step*n) for n in range(int(horizon / step))]
 
     # Initial Orbit preparation
-    rp0 = r_Earth + 400 # perigee radius (m)
-    rap0 = r_Earth + 600 # apogee radius (m)
+    rp0 = r_Earth + 400 * 1e3 # perigee radius (m)
+    rap0 = r_Earth + 600 * 1e3 # apogee radius (m)
     
-
+    a0 = initial_state.get('Semi-major Axis (km)', None)
+    semi_major_axis = a0 * 1e3 if a0 is not None else (rp0 + rap0) / 2
     
     initial_orbit = KeplerianOrbit(
-        initial_state.get('Semi-Major Axis (km)', (rp0 + rap0) / 2) * 1e3,
+        semi_major_axis,
         initial_state.get('Eccentricity', (rap0 - rp0) / (rap0 + rp0)),
         initial_state.get('Inclination (deg)', 45) * deg,
         initial_state.get('Argument of Perigee (deg)', 30) * deg,
