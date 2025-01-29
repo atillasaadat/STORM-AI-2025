@@ -23,76 +23,138 @@ class DensityModelEvaluator:
     def _load_json(self, file_path):
         """Load and parse the JSON file."""
         with open(file_path, 'r') as f:
-            data = json.load(f)
-        return data
+            return json.load(f)
 
     def _validate_data(self):
-        """Validate that the ground truth and participant data have the same timestamps."""
-        for key in self.ground_truth.keys():
-            if key not in self.participant:
-                return False
-            if self.ground_truth[key]['Timestamp'] != self.participant[key]['Timestamp']:
-                return False
-        return True
-
-    def _compute_weight(self, timestamps, epsilon=1e-5):
         """
-        Compute exponential decay weights based on the time difference.
-        
+        Validates that both ground truth and participant data contain the same keys.
+
+        Returns:
+            bool: True if data keys match, False otherwise.
+        """
+        ground_truth_keys = set(self.ground_truth.keys())
+        participant_keys = set(self.participant.keys())
+        return ground_truth_keys == participant_keys
+
+     def _pad_or_truncate(self, array, target_length):
+            """
+            Adjusts the length of an array by padding with NaNs or truncating.
+    
+            Args:
+                array (np.ndarray): Input array.
+                target_length (int): Desired length of the array.
+    
+            Returns:
+                np.ndarray: Adjusted array with length equal to target_length.
+            """
+            current_length = len(array)
+            if current_length == target_length:
+                return array
+            elif current_length < target_length:
+                padding = np.full(target_length - current_length, np.nan)
+                return np.concatenate([array, padding])
+            else:
+                return array[:target_length]
+
+    def _prepare_dataframe(self):
+        """
+        Combines ground truth, MSIS, and participant data into a single DataFrame.
+
+        Returns:
+            pd.DataFrame: Combined DataFrame containing all relevant data.
+        """
+        combined_data = []
+
+        for file_id in self.ground_truth.keys():
+            # Convert timestamps to datetime objects
+            timestamps = pd.to_datetime(self.ground_truth[file_id]['Timestamp'], errors='coerce')
+            num_timestamps = len(timestamps)
+
+            # Extract density arrays
+            truth_density = np.array(self.ground_truth[file_id]['Orbit Mean Density (kg/m^3)'])
+            msis_density = np.array(self.ground_truth[file_id]['MSIS Orbit Mean Density (kg/m^3)'])
+            pred_density = np.array(self.participant[file_id]['Orbit Mean Density (kg/m^3)'])
+
+            # Align array lengths
+            truth_density = self._pad_or_truncate(truth_density, num_timestamps)
+            msis_density = self._pad_or_truncate(msis_density, num_timestamps)
+            pred_density = self._pad_or_truncate(pred_density, num_timestamps)
+
+            # Create DataFrame for the current file_id
+            file_df = pd.DataFrame({
+                'FileID': [file_id] * num_timestamps,
+                'Timestamp': timestamps,
+                'TruthDensity': truth_density,
+                'MSISDensity': msis_density,
+                'PredictDensity': pred_density
+            })
+
+            # Calculate DeltaTime in seconds from the first timestamp
+            file_df['DeltaTime'] = (file_df['Timestamp'] - file_df['Timestamp'].iloc[0]).dt.total_seconds()
+
+            combined_data.append(file_df)
+
+        # Concatenate all individual DataFrames
+        combined_df = pd.concat(combined_data, ignore_index=True)
+
+        # Replace invalid density values with NaN
+        combined_df.replace(9.99e32, np.nan, inplace=True)
+
+        # Remove rows with any NaN in key density columns
+        combined_df.dropna(subset=['TruthDensity', 'MSISDensity', 'PredictDensity'], inplace=True)
+
+        return combined_df
+
+    def score(self, epsilon=1e-5):
+        """
+        Computes the Propagation Score (PS) based on the provided data.
+
         Args:
-        - timestamps (list): List of ISO 8601 timestamps.
-        - epsilon (float): Minimum weight value at the end of the forecast period.
-        
+            epsilon (float, optional): Minimum weight value at the end of the forecast period. Defaults to 1e-5.
+
         Returns:
-        - np.array: Array of weights.
+            float: Calculated Propagation Score (PS). Returns np.nan if no valid data is available.
         """
-        t_seconds = np.array(pd.to_datetime(timestamps) - pd.to_datetime(timestamps[0]), dtype='timedelta64[s]').astype(int)
-        duration = t_seconds[-1]
-        gamma = -np.log(epsilon) / duration
-        weights = np.exp(-gamma * t_seconds)
-        return weights
+        # Prepare the combined DataFrame
+        combined_df = self._prepare_dataframe()
 
-    def _rmse(self, true_values, predicted_values):
-        """Compute RMSE between two arrays."""
-        return np.sqrt(np.mean((np.array(true_values) - np.array(predicted_values)) ** 2))
+        if combined_df.empty:
+            return np.nan
 
-    def score(self):
-        """
-        Calculate the Propagation Score (PS) across all datasets.
-        
-        Returns:
-        - float: Propagation Score (PS).
-        """
-        total_score = 0
-        total_weight = 0
+        # Calculate squared errors for MSIS and participant predictions
+        combined_df['MSIS_ErrorSq'] = (combined_df['MSISDensity'] - combined_df['TruthDensity']) ** 2
+        combined_df['Pred_ErrorSq'] = (combined_df['PredictDensity'] - combined_df['TruthDensity']) ** 2
 
-        for key in self.ground_truth.keys():
-            timestamps = self.ground_truth[key]['Timestamp']
-            true_density = self.ground_truth[key]['Orbit Mean Density (kg/m^3)']
-            msis_density = self.ground_truth[key]['MSIS Orbit Mean Density (kg/m^3)']
-            test_density = self.participant[key]['Orbit Mean Density (kg/m^3)']
+        # Compute mean squared errors grouped by DeltaTime
+        mse_grouped = combined_df.groupby('DeltaTime')[['MSIS_ErrorSq', 'Pred_ErrorSq']].mean()
 
-            # Compute weights
-            weights = self._compute_weight(timestamps)
+        # Calculate RMSE by taking square roots of MSE
+        rmse_df = mse_grouped.apply(np.sqrt)
+        rmse_df.columns = ['MSIS_RMSE', 'Pred_RMSE']
 
-            # Compute RMSE for MSIS and test densities
-            rmse_test = self._rmse(true_density, test_density)
-            rmse_msis = self._rmse(true_density, msis_density)
-            
-            # Avoid division by zero
-            rmse_msis = max(rmse_msis, 1e-10)
+        # Calculate exponential weights based on DeltaTime
+        delta_times = rmse_df.index.values
+        if len(delta_times) < 2:
+            weights = np.ones_like(delta_times, dtype=float)
+        else:
+            total_duration = max(delta_times[-1] - delta_times[0], 1e-12)
+            decay_rate = -np.log(epsilon) / total_duration
+            weights = np.exp(-decay_rate * (delta_times - delta_times[0]))
 
-            # Compute skill score
-            skill_score = 1 - (rmse_test / rmse_msis)
+        # Avoid division by zero by replacing zero RMSE with a small value
+        rmse_df['MSIS_RMSE'].replace(0, 1e-10, inplace=True)
 
-            # Aggregate weighted scores
-            total_score += skill_score * np.sum(weights)
-            total_weight += np.sum(weights)
+        # Compute the skill score for each DeltaTime
+        rmse_df['Skill'] = 1 - (rmse_df['Pred_RMSE'] / rmse_df['MSIS_RMSE'])
 
-        # Final Propagation Score
-        propagation_score = total_score / total_weight
+        skill_scores = rmse_df['Skill'].values
+
+        if np.all(np.isnan(skill_scores)):
+            return np.nan
+
+        # Calculate the weighted average of skill scores
+        propagation_score = np.average(skill_scores, weights=weights)
         return propagation_score
-
 
 def run_evaluator(ground_truth_path=None, participant_path=None):
     """
