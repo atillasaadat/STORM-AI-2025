@@ -36,9 +36,9 @@
   </div>
 
   <div style="display: inline-flex; align-items: center; background-color: #4d4d4d; color: #ffffff; border-radius: 5px; padding: 5px 10px; font-family: Arial, sans-serif; font-size: 14px; text-align: center;">
-      <img src="https://eval.ai/dist/images/evalai-logo-single.png" alt="EvalAI Logo" style="height: 20px; margin-right: 8px;">
-      <a href="https://eval.ai/web/challenges/challenge-page/2394/overview" target="_blank" style="color: #ffffff; text-decoration: none;">
-      EvalAI Challenge
+      <img src="https://www.codabench.org/static/img/Cha_Logo.png" alt="Codabench Logo" style="height: 20px; margin-right: 8px;">
+      <a href="https://www.codabench.org/competitions/5547/" target="_blank" style="color: #ffffff; text-decoration: none;">
+      Codabench Competition
       </a>
   </div>
 
@@ -63,7 +63,7 @@
     <div style="font-size: 18px; font-weight: bold; color: #ffffff; background-color: #ffa500; display: inline-block; padding: 5px 10px; border-radius: 3px; margin-bottom: 10px;">🚀  Competition Status</div>
     <p style="font-size: 14px; margin: 0 0 10px; color: #555;">We are currently in <b>Phase 1</b> of the competition, and the <u><a href="
     https://www.dropbox.com/scl/fo/ilxkfy9yla0z2ea97tfqv/AB9lngJ2yHvf9t5h2oQXaDc?rlkey=iju8q5b1kxol78kbt0b9tcfz3&st=j7f0mcc3&dl=0"  
-    style="color: #d35400; text-decoration: none; font-weight: bold;">dataset</a></u> has been released. For more information about its content and format, please check out the <u><a href="https://2025-ai-challenge.readthedocs.io/en/latest/dataset.html#dataset-information" style="color: #d35400; text-decoration: none; font-weight: bold;">Dataset Information</a></u> section. You can now submit your code on a rolling basis for evaluation on the <u><a href="https://eval.ai/web/challenges/challenge-page/2394/overview" style="color: #d35400; text-decoration: none; font-weight: bold;">EvalAI platform</a></u>. <b> Phase 1 </b> of the competition will end on March 17, 2025.</p>
+    style="color: #d35400; text-decoration: none; font-weight: bold;">dataset</a></u> has been released. For more information about its content and format, please check out the <u><a href="https://2025-ai-challenge.readthedocs.io/en/latest/dataset.html#dataset-information" style="color: #d35400; text-decoration: none; font-weight: bold;">Dataset Information</a></u> section. You can now submit your code on a rolling basis for evaluation on the <u><a href="https://www.codabench.org/competitions/5547/#/participate-tab" style="color: #d35400; text-decoration: none; font-weight: bold;">Codabench platform</a></u>. <b> Phase 1 </b> of the competition will end on March 17, 2025.</p>
     <p style="font-size: 20px; margin: 0 0 10px; color: #555; text-align:center"><b>Have fun!</b></p>
 </div>
 </div>
@@ -109,7 +109,7 @@ The dataset consists of a public challenge dataset that can be used to train and
 
 <div align="justify">
 
-The STORM-AI DevKit is accessible on GitHub <a href="https://github.com/ARCLab-MIT/STORM-AI-devkit-2025/">here</a>. It includes the code for the baseline model that appears on the EvalAI leaderboard, a high-fidelity orbit propagator, and more. 
+The STORM-AI DevKit is accessible on GitHub <a href="https://github.com/ARCLab-MIT/STORM-AI-devkit-2025/">here</a>. It includes the code for the baseline model that appears on the Competition leaderboard, a high-fidelity orbit propagator, and more. 
 
 The development kit is coded in Python and includes a set of essential utility functions, tutorials, and baseline implementations designed to help participants get started with the challenge. The tutorials provide guidance on data reading, parsing, and manipulation, as well as on training, evaluating, and submitting the machine learning algorithms to the competition platform.
 </div>
