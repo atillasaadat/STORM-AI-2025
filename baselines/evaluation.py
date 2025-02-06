@@ -164,12 +164,6 @@ def run_evaluator(ground_truth_path=None, participant_path=None):
     - ground_truth_path (str): Path to the ground truth JSON file.
     - participant_path (str): Path to the participant JSON file.
     """
-    if participant_path is None:
-        participant_df = '../toy_data/participant_toy.csv'
-    
-    if ground_truth_path is None:
-        ground_truth_path = '../toy/grountruth_toy.csv'
-
     evaluator = DensityModelEvaluator(ground_truth_path, participant_path)
     ps = evaluator.score()
     print(f'Propagation Score (PS): {ps:.6f}')
