@@ -21,7 +21,7 @@
       Q: How do I report an issue with the wiki/devkit/dataset?
     </summary>
     <p style="margin-top: 10px; font-size: 14px; color: #555;">
-      A: Please reach out to us on   our devkit discussion forum, and we will address the issue ASAP. After our EvalAI page becomes active, you may post questions to the EvalAI forum.
+      A: Please reach out to us on   our devkit discussion forum, and we will address the issue ASAP. You can also use <a href="https://www.codabench.org/forums/5462/">Codabench forum</a> if you prefer to.
     </p>
   </details>
 
