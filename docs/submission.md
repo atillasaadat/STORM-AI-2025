@@ -14,7 +14,7 @@ To ensure smooth execution and avoid dependency issues, all participants must al
 (base)$ conda activate <env_name>
 (<env_name>)$ conda env export > environment.yml
 ```
-With all this in mind, your submission file should look something like the [baseline example]():
+With all this in mind, your submission file should look something like the [baseline example](https://github.com/ARCLab-MIT/STORM-AI-devkit-2025/tree/main/baselines/Codabench):
 
 ```
 submission.zip
